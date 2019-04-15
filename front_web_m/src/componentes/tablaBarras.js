@@ -310,14 +310,8 @@ class TablaBarras extends Component{
        		<button class="btn btn-primary" onClick = {this.click}>Buscar</button>
 	  		{this.crearFilas()}
 	  		<br/>
-        {this.funcionaPLS()}
         <br/>
-        Fecha Inicio
-        <input name="fechaInicio" value = {this.state.fechaInicio} onChange={this.cambio} type="date"/>
-        <br/>
-        Fecha Final
-        <input name="fechaFinal" value = {this.state.fechaFinal} onChange={this.cambio} type="date"/>
-        <button class="btn btn-primary" onClick={this.onClickFechas}>Buscar</button>
+        <button class="btn btn-primary" onClick={this.onClickFechas}>Filtrar</button>
         <div style={style}>
 
           <br /><br />
