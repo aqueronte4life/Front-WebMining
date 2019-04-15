@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Line, Circle } from 'rc-progress';
+import '../css/tablaBarra.css';
 
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
@@ -215,7 +216,38 @@ class TablaBarras extends Component{
       )
   }
 
+  displayar(){
 
+  }
+
+  porfavor(){
+    clearTimeout();
+    document.getElementById("desv1").style.display = "block";
+  }
+
+  cosito(){
+    document.getElementById("desv1").style.display = "none";
+  }
+
+  doTimeout(){
+    var myVar;
+    myVar = setTimeout(function(){ document.getElementById("desv1").style.display = "none"; }, 1500);
+  }
+
+  funcionaPLS(){
+    return(
+      <div>
+      <button id="desv" onClick={this.porfavor} onMouseEnter={this.porfavor} onMouseLeave={this.doTimeout}>snidfbsd</button>
+        <div id="desv1">
+          This is the paragraph to end all paragraphs.  You
+          should feel  to have seen such a paragraph in
+          your life.  Congratulations!
+        </div>
+        
+
+      </div>
+      )
+  }
 
   render(){
   	return(
@@ -225,24 +257,27 @@ class TablaBarras extends Component{
        		<button class="btn btn-primary" onClick = {this.click}>Buscar</button>
 	  		{this.crearFilas()}
 	  		<br/>
-	        Fecha Inicio
-	        <input name="fechaInicio" value = {this.state.fechaInicio} onChange={this.cambio} type="date"/>
-	        <br/>
-	        Fecha Final
-	        <input name="fechaFinal" value = {this.state.fechaFinal} onChange={this.cambio} type="date"/>
-	        <button class="btn btn-primary" onClick={this.onClickFechas}>Buscar</button>
-          <div>
-
-         <div style={style}>
+        {this.funcionaPLS()}
+        <br/>
+        Fecha Inicio
+        <input name="fechaInicio" value = {this.state.fechaInicio} onChange={this.cambio} type="date"/>
+        <br/>
+        Fecha Final
+        <input name="fechaFinal" value = {this.state.fechaFinal} onChange={this.cambio} type="date"/>
+        <button class="btn btn-primary" onClick={this.onClickFechas}>Buscar</button>
         
-        <br /><br />
-        <Range  min={this.state.min} max={this.state.max} step={24 * 60 * 60 * 1000}
-          onChange={this.onSliderChange}
-        />
-        {this.imprimirFechas()}
-        </div>
-      </div>
-		</div>
+
+          <div style={style}>
+      
+            <br /><br />
+            <Range  min={this.state.min} max={this.state.max} step={24 * 60 * 60 * 1000}
+              onChange={this.onSliderChange}
+            />
+            {this.imprimirFechas()}
+          </div>
+        
+        
+		  </div>
   		)
   }
 }
