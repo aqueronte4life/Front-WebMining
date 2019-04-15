@@ -10,3 +10,7 @@
 .dropdown:hover+.dropdown-content {
   display: block;
 }
+
+.figuras{
+  pointer-events: none;
+}

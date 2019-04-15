@@ -5,6 +5,8 @@ import '../css/tablaBarra.css';
 
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
+import { Button, Popover, PopoverHeader, PopoverBody } from 'reactstrap';
+
 const Range = Slider.Range;
 function log(value) {
   console.log(value); //eslint-disable-line
@@ -67,12 +69,27 @@ class TablaBarras extends Component{
       min: 1413169200000,
       max: 1416798000000,
       min1: 1413169200000,
-      max1: 1416798000000
+      max1: 1416798000000,
+      /*popoverOpen0: false,
+      popoverOpen1: false,
+      popoverOpen2: false,
+      popoverOpen3: false,
+      popoverOpen4: false,
+      popoverOpen5: false,
+      popoverOpen6: false,
+      popoverOpen7: false,
+      popoverOpen8: false,
+      popoverOpen9: false,
+      popoverOpen10: false,
+      popoverOpen11: false*/
+      popoverOpen1: [[false,false,false], [false,false,false], [false,false,false], [false, false, false]],
+
 
     }
     this.cambio = this.cambio.bind(this);
     this.click = this.click.bind(this);
     this.onSliderChange = this.onSliderChange.bind(this);
+    this.toggle = this.toggle.bind(this);
   }
 
   obtenerDatos(){
@@ -107,23 +124,41 @@ class TablaBarras extends Component{
 
   crearFilas(){
   	const Tabla = this.state.datos.map((dato, i)=>{
-  		const Fila = dato.map((num)=>{
+  		const Fila = dato.map((num, j)=>{
   			if(num <50){
   				return(
   					<td>
-  					<Line strokeWidth="2" strokeColor="red"  percent={num} /> {num}
+            <div id = {"popoverOpen" + (i*3 + j)}>
+            <Line class = "figuras" strokeWidth="2" strokeColor="red"  percent={num} /> {num}
+            </div>
+            <Popover placement="bottom" isOpen={this.state.popoverOpen1[i][j]} target={"popoverOpen" + (i*3 + j)} toggle={this.toggle}>
+              <PopoverHeader>Popover Title</PopoverHeader>
+              <PopoverBody>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</PopoverBody>
+            </Popover>
   					</td>)
 	  		}
 	  		else if(num < 70){
 	  			return(
   					<td>
-  					<Line strokeWidth="2" strokeColor="yellow"  percent={num} /> {num}
+            <div id = {"popoverOpen" + (i*3 + j)}>
+  					<Line class = "figuras" strokeWidth="2" strokeColor="yellow"  percent={num} /> {num}
+            </div>
+            <Popover placement="bottom" isOpen={this.state.popoverOpen1[i][j]} target={"popoverOpen" + (i*3 + j)} toggle={this.toggle}>
+              <PopoverHeader>Popover Title</PopoverHeader>
+              <PopoverBody>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</PopoverBody>
+            </Popover>
   					</td>)
 	  		}
 	  		else{
 	  			return(
   					<td>
-  					<Line strokeWidth="2" strokeColor="green"  percent={num} /> {num}
+            <div id = {"popoverOpen" + (i*3 + j)}>
+  					<Line class = "figuras" strokeWidth="2" strokeColor="green"  percent={num} /> {num}
+            </div>
+            <Popover placement="bottom" isOpen={this.state.popoverOpen1[i][j]} target={"popoverOpen" + (i*3 + j)} toggle={this.toggle}>
+              <PopoverHeader>Popover Title</PopoverHeader>
+              <PopoverBody>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</PopoverBody>
+            </Popover>
   					</td>)
 	  		}
   		});
@@ -158,7 +193,7 @@ class TablaBarras extends Component{
 			      	{Fila}
 			    </tr>
   				)
-  		}	
+  		}
   	})
   	return(
   		<table class="table table-striped">
@@ -243,10 +278,28 @@ class TablaBarras extends Component{
           should feel  to have seen such a paragraph in
           your life.  Congratulations!
         </div>
-        
+
 
       </div>
       )
+  }
+
+  toggle(event) {
+    console.log(event.target.id);
+    var a = "";
+    for (var i = 11; i < event.target.id.length; i++) {
+      a = a+event.target.id[i];
+    }
+    console.log(a);
+    var x = parseInt(a/3);
+    var y = a - x*3
+    console.log(x + " " + y);
+    const nuev = this.state.popoverOpen1.slice() //copy the array
+    nuev[x][y] = !this.state.popoverOpen1[x][y] //execute the manipulations
+    this.setState({popoverOpen1: nuev}) //set the new state
+    /*this.setState({
+      popoverOpen1: !this.state.popoverOpen1
+    });*/
   }
 
   render(){
@@ -265,18 +318,15 @@ class TablaBarras extends Component{
         Fecha Final
         <input name="fechaFinal" value = {this.state.fechaFinal} onChange={this.cambio} type="date"/>
         <button class="btn btn-primary" onClick={this.onClickFechas}>Buscar</button>
-        
+        <div style={style}>
 
-          <div style={style}>
-      
-            <br /><br />
-            <Range  min={this.state.min} max={this.state.max} step={24 * 60 * 60 * 1000}
-              onChange={this.onSliderChange}
-            />
-            {this.imprimirFechas()}
-          </div>
-        
-        
+          <br /><br />
+          <Range  min={this.state.min} max={this.state.max} step={24 * 60 * 60 * 1000}
+            onChange={this.onSliderChange}
+          />
+          {this.imprimirFechas()}
+        </div>
+
 		  </div>
   		)
   }
