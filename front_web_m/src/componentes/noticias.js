@@ -35,7 +35,7 @@ class Noticias extends Component{
   click(event){
     event.preventDefault();
     console.log(this.state.texto);
-    var link = 'http://localhost:3001/noticia/' + this.state.texto
+    var link = 'https://deploy-back.herokuapp.com/noticia/' + this.state.texto
     axios.get(link)
     .then(res => {
       console.log(res.data)

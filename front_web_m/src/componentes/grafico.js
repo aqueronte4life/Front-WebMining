@@ -203,7 +203,7 @@ class Grafico extends Component{
       fecha: this.state.posicionX,
       fuente: this.state.tipo
     }
-    var link = 'http://localhost:3001/subir_hito/';
+    var link = 'https://deploy-back.herokuapp.com/subir_hito/';
     axios.post(link, hito)
     .then(res => {
       console.log(res.data);
@@ -234,10 +234,10 @@ class Grafico extends Component{
 
   obtenerDatos(){
     if(this.state.tipo == 'RSS'){
-      var link = 'http://localhost:3001/graf1_service/' + this.props.nombreEmpresa.nombreEmpresa
+      var link = 'https://deploy-back.herokuapp.com/graf1_service/' + this.props.nombreEmpresa.nombreEmpresa
     axios.get(link)
     .then(res => {
-      var link = 'http://localhost:3001/getHito/' + this.props.nombreEmpresa.nombreEmpresa +'/' + this.state.tipo ;
+      var link = 'https://deploy-back.herokuapp.com/getHito/' + this.props.nombreEmpresa.nombreEmpresa +'/' + this.state.tipo ;
 
 
       this.setState({datosG : res.data})
@@ -273,7 +273,7 @@ class Grafico extends Component{
           a++;
         }
       }
-      var link = 'http://localhost:3001/getHito/' + this.props.nombreEmpresa.nombreEmpresa;
+      var link = 'https://deploy-back.herokuapp.com/getHito/' + this.props.nombreEmpresa.nombreEmpresa;
       axios.get(link)
       .then(res => {
         console.log(res.data)
@@ -295,11 +295,11 @@ class Grafico extends Component{
     });
     }
     else if(this.state.tipo == 'RS'){
-      var link = 'http://localhost:3001/graf1_service_twitter/' + this.props.nombreEmpresa.nombreEmpresa
+      var link = 'https://deploy-back.herokuapp.com/graf1_service_twitter/' + this.props.nombreEmpresa.nombreEmpresa
 
     axios.get(link)
     .then(res => {
-      var link = 'http://localhost:3001/getHito/' + this.props.nombreEmpresa.nombreEmpresa;
+      var link = 'https://deploy-back.herokuapp.com/getHito/' + this.props.nombreEmpresa.nombreEmpresa;
       this.setState({datosG : res.data})
 
       var keys = Object.keys(res.data[0]);
@@ -332,7 +332,7 @@ class Grafico extends Component{
         }
       }
 
-      /*var link = 'http://localhost:3001/getHito/' + this.props.nombreEmpresa.nombreEmpresa;
+      /*var link = 'https://deploy-back.herokuapp.com/getHito/' + this.props.nombreEmpresa.nombreEmpresa;
       axios.get(link)
       .then(res => {
         console.log(res.data)
@@ -355,11 +355,11 @@ class Grafico extends Component{
     }
     else if(this.state.tipo == 'TP'){
       //aca cambiar endpoint
-      var link = 'http://localhost:3001//graf1_service_google/' + this.props.nombreEmpresa.nombreEmpresa
+      var link = 'https://deploy-back.herokuapp.com/graf1_service_google/' + this.props.nombreEmpresa.nombreEmpresa
 
       axios.get(link)
       .then(res => {
-      var link = 'http://localhost:3001/getHito/' + this.props.nombreEmpresa.nombreEmpresa;
+      var link = 'https://deploy-back.herokuapp.com/getHito/' + this.props.nombreEmpresa.nombreEmpresa;
 
       this.setState({datosG : res.data})
 
@@ -394,7 +394,7 @@ class Grafico extends Component{
         }
       }
 
-      /*var link = 'http://localhost:3001/getHito/' + this.props.nombreEmpresa.nombreEmpresa;
+      /*var link = 'https://deploy-back.herokuapp.com/getHito/' + this.props.nombreEmpresa.nombreEmpresa;
       axios.get(link)
       .then(res => {
         console.log(res.data)
@@ -464,7 +464,7 @@ class Grafico extends Component{
       fechaInicio: this.state.fechaInicio,
       fechaTermino: this.state.fechaFinal
     }
-    var link = 'http://localhost:3001/obtenerFechas/';
+    var link = 'https://deploy-back.herokuapp.com/obtenerFechas/';
     axios.post(link, fechas)
     .then(res => {
       console.log(res.data);

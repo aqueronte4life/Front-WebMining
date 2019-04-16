@@ -72,7 +72,7 @@ class Grafico2 extends Component{
     //chart.data = data;
     console.log(data);
   */
-  /*var link = 'http://localhost:3001/graf1_service/' + this.props.nombreEmpresa.nombreEmpresa
+  /*var link = 'https://deploy-back.herokuapp.com/graf1_service/' + this.props.nombreEmpresa.nombreEmpresa
   var data = []
 
     axios.get(link)
@@ -274,7 +274,7 @@ class Grafico2 extends Component{
   }
 
   obtenerDatos(){
-    var link = 'http://localhost:3001/graf1_service/' + this.props.nombreEmpresa.nombreEmpresa
+    var link = 'https://deploy-back.herokuapp.com/graf1_service/' + this.props.nombreEmpresa.nombreEmpresa
     var data = []
 
     axios.get(link)
@@ -316,7 +316,7 @@ class Grafico2 extends Component{
       this.setState({data: data})
     })
     .then(result =>{
-      var link = 'http://localhost:3001/graf1_service_twitter/' + this.props.nombreEmpresa.nombreEmpresa
+      var link = 'https://deploy-back.herokuapp.com/graf1_service_twitter/' + this.props.nombreEmpresa.nombreEmpresa
       var data1 = []
       axios.get(link)
       .then(res => {

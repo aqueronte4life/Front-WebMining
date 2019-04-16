@@ -108,7 +108,7 @@ class TablaBarras extends Component{
   click(event){
     event.preventDefault();
     console.log(this.state.texto);
-    var link = 'http://localhost:3001/service_table/' + this.state.texto
+    var link = 'https://deploy-back.herokuapp.com/service_table/' + this.state.texto
     axios.get(link)
     .then(res => {
       console.log(res.data)
@@ -218,7 +218,7 @@ class TablaBarras extends Component{
       fechaInicio: this.state.fechaInicio,
       fechaTermino: this.state.fechaFinal
     }
-    var link = 'http://localhost:3001/obtenerFechas/';
+    var link = 'https://deploy-back.herokuapp.com/obtenerFechas/';
     axios.post(link, fechas)
     .then(res => {
       console.log(res.data);
