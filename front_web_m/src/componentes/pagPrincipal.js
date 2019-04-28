@@ -34,8 +34,8 @@ class PagPrincipal extends Component{
       <div>
         <div class="row">
           <div class="col-6 col-md-6 col-sm-4 col-xs-2">
-            <Noticias />
-            <Grafico />
+            <Noticias ruta = {this.props.match.params.id}/>
+            <Grafico  ruta = {this.props.match.params.id}/>
           </div>
           <div class="col-6 col-md-6 col-sm-4 col-xs-2">
             <TablaBarras />

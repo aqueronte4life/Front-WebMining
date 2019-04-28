@@ -35,7 +35,7 @@ class Noticias extends Component{
   click(event){
     event.preventDefault();
     console.log(this.state.texto);
-    var link = 'https://deploy-back.herokuapp.com/noticia/' + this.state.texto
+    var link = 'https://deploy-back.herokuapp.com/noticia/' + this.props.ruta
     axios.get(link)
     .then(res => {
       console.log(res.data)
@@ -46,7 +46,6 @@ class Noticias extends Component{
 
         console.log(error.response)
     });
-    this.props.setNombre(this.state.texto);
     console.log(this.props.nombreEmpresa);
     //this.setState({noticias: [{title: 'Hola', description: 'hola2'}, {title: 'hola3', description: 'hola4'}]})
   }

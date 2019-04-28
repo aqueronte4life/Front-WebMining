@@ -38,7 +38,7 @@ function getDates(startDate, endDate, tipo) {
   else if(tipo == 1){
     endDate.setDate(endDate.getDate())
   }
-  
+
   var dates = [],
       currentDate = startDate,
       addDays = function(days) {
@@ -199,7 +199,7 @@ class Grafico extends Component{
     console.log(this.state.posicionX);
 
     const hito = {
-      empresa: this.props.nombreEmpresa.nombreEmpresa,
+      empresa: this.props.ruta,
       fecha: this.state.posicionX,
       fuente: this.state.tipo
     }
@@ -216,6 +216,7 @@ class Grafico extends Component{
 
 
   componentDidMount(){
+    this.obtenerDatos();
     this.crearGrafico();
   }
 
@@ -233,11 +234,12 @@ class Grafico extends Component{
   }
 
   obtenerDatos(){
+    console.log(this.props);
     if(this.state.tipo == 'RSS'){
-      var link = 'https://deploy-back.herokuapp.com/graf1_service/' + this.props.nombreEmpresa.nombreEmpresa
+      var link = 'https://deploy-back.herokuapp.com/graf1_service/' + this.props.ruta
     axios.get(link)
     .then(res => {
-      var link = 'https://deploy-back.herokuapp.com/getHito/' + this.props.nombreEmpresa.nombreEmpresa +'/' + this.state.tipo ;
+      var link = 'https://deploy-back.herokuapp.com/getHito/' + this.props.ruta +'/' + this.state.tipo ;
 
 
       this.setState({datosG : res.data})
@@ -273,7 +275,7 @@ class Grafico extends Component{
           a++;
         }
       }
-      var link = 'https://deploy-back.herokuapp.com/getHito/' + this.props.nombreEmpresa.nombreEmpresa;
+      var link = 'https://deploy-back.herokuapp.com/getHito/' + this.props.ruta;
       axios.get(link)
       .then(res => {
         console.log(res.data)
@@ -295,11 +297,11 @@ class Grafico extends Component{
     });
     }
     else if(this.state.tipo == 'RS'){
-      var link = 'https://deploy-back.herokuapp.com/graf1_service_twitter/' + this.props.nombreEmpresa.nombreEmpresa
+      var link = 'https://deploy-back.herokuapp.com/graf1_service_twitter/' + this.props.ruta
 
     axios.get(link)
     .then(res => {
-      var link = 'https://deploy-back.herokuapp.com/getHito/' + this.props.nombreEmpresa.nombreEmpresa;
+      var link = 'https://deploy-back.herokuapp.com/getHito/' + this.props.ruta;
       this.setState({datosG : res.data})
 
       var keys = Object.keys(res.data[0]);
@@ -320,7 +322,7 @@ class Grafico extends Component{
           });
           a++;
           b++;
-          
+
         }
         else{
           todas[a].setTime(todas[a].getTime() + 4*60*60*1000);
@@ -355,11 +357,11 @@ class Grafico extends Component{
     }
     else if(this.state.tipo == 'TP'){
       //aca cambiar endpoint
-      var link = 'https://deploy-back.herokuapp.com/graf1_service_google/' + this.props.nombreEmpresa.nombreEmpresa
+      var link = 'https://deploy-back.herokuapp.com/graf1_service_google/' + this.props.ruta
 
       axios.get(link)
       .then(res => {
-      var link = 'https://deploy-back.herokuapp.com/getHito/' + this.props.nombreEmpresa.nombreEmpresa;
+      var link = 'https://deploy-back.herokuapp.com/getHito/' + this.props.ruta;
 
       this.setState({datosG : res.data})
 
@@ -382,7 +384,7 @@ class Grafico extends Component{
           });
           a++;
           b++;
-          
+
         }
         else{
           todas[a].setTime(todas[a].getTime() + 4*60*60*1000);
@@ -460,7 +462,7 @@ class Grafico extends Component{
 
   onClickFechas(){
     const fechas = {
-      empresa: this.props.nombreEmpresa.nombreEmpresa,
+      empresa: this.props.ruta,
       fechaInicio: this.state.fechaInicio,
       fechaTermino: this.state.fechaFinal
     }
