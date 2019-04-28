@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import App from './App';
 import Noticias from './componentes/noticias';
 import TablaBarras from  './componentes/tablaBarras';
+import PagPrincipal from './componentes/pagPrincipal';
 
 const AppRoutes = ({store}) =>
   <Provider store = {store}>
@@ -11,10 +12,9 @@ const AppRoutes = ({store}) =>
       <Switch>
         <Route exact path="/" component={Noticias} />
         <Route path="/abc" component={TablaBarras} />
+        <Route path="/def/:id" component={PagPrincipal} />
       </Switch>
     </App>
   </Provider>;
 
 export default AppRoutes;
-
-

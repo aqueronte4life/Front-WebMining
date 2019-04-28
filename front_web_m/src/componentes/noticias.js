@@ -80,8 +80,8 @@ class Noticias extends Component{
         <br/>
         <br/>
         {this.mostrar()}
-        <Grafico/>
-        <Grafico2/>
+        {/*<Grafico/>*/}
+        {/*<Grafico2/>*/}
       </div>
     )
   }
