@@ -309,15 +309,16 @@ class TablaBarras extends Component{
        		<input type = "text" name = "texto" onChange = {this.cambio}/>
        		<button class="btn btn-primary" onClick = {this.click}>Buscar</button>
 	  		{this.crearFilas()}
-
+	  		<br/>
+        <br/>
+        <button class="btn btn-primary" onClick={this.onClickFechas}>Filtrar</button>
         <div style={style}>
 
-          <br />
+          <br /><br />
           <Range  min={this.state.min} max={this.state.max} step={24 * 60 * 60 * 1000}
             onChange={this.onSliderChange}
           />
           {this.imprimirFechas()}
-          <button class="btn btn-primary" onClick={this.onClickFechas}>Filtrar</button>
         </div>
 
 		  </div>
