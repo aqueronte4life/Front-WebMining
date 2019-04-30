@@ -9,6 +9,7 @@ import Grafico from './grafico';
 import Grafico2 from './grafico2';
 import Noticias from './noticias';
 import TablaBarras from './tablaBarras';
+import '../css/noticias.css'
 
 am4core.useTheme(am4themes_animated);
 
@@ -34,11 +35,17 @@ class PagPrincipal extends Component{
       <div>
         <div class="row">
           <div class="col-6 col-md-6 col-sm-4 col-xs-2">
-            <Noticias ruta = {this.props.match.params.id}/>
-            <Grafico  ruta = {this.props.match.params.id}/>
+            <div class="tamano">
+              <Noticias ruta = {this.props.match.params.id}/>
+            </div>
+            <div class="tamano2">
+              <Grafico  ruta = {this.props.match.params.id}/>
+            </div>
           </div>
           <div class="col-6 col-md-6 col-sm-4 col-xs-2">
-            <TablaBarras />
+            <div class="tamano2">
+              <TablaBarras />
+            </div>
           </div>
         </div>
         {this.props.nombreEmpresa.nombreEmpresa}

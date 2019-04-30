@@ -8,6 +8,7 @@ import * as actions from '../redux/actions';
 import Grafico from './grafico';
 import Grafico2 from './grafico2';
 
+
 am4core.useTheme(am4themes_animated);
 
 class Noticias extends Component {
@@ -44,22 +45,36 @@ class Noticias extends Component {
 
                 console.log(error.response)
             });
-        console.log(this.props.nombreEmpresa);
-        //this.setState({noticias: [{title: 'Hola', description: 'hola2'}, {title: 'hola3', description: 'hola4'}]})
+        //console.log(this.props.nombreEmpresa);
+        //this.setState({noticias: [{title: 'Hola', description: 'hola2'}, {title: 'hola3', description: 'hola4'}, {title: 'hola3', description: 'hola4'}, {title: 'hola3', description: 'hola4'}, {title: 'hola3', description: 'hola4'}, {title: 'hola3', description: 'hola4'}, {title: 'hola3', description: 'hola4'}] })
     }
 
     mostrar() {
         var noticias = this.state.noticias.map((noticia) => {
-            return ( <
-                div class = "card" >
-                <
-                h5 class = "card-header" > { noticia.noticia.title } < /h5> <
-                div class = "card-body" >
-                <
-                p class = "card-text" > { noticia.noticia.description } < /p> < /
-                div > <
-                /div>
+            return (
+              <div class = "card">
+                <h5 class = "card-header">
+                  { noticia.noticia.title }
+                </h5>
+                <div class = "card-body" >
+                  <p class = "card-text" >
+                    { noticia.noticia.description }
+                  </p>
+                </div>
+              </div>
             );
+            /*return (
+              <div class = "card">
+                <h5 class = "card-header">
+                  { noticia.title }
+                </h5>
+                <div class = "card-body" >
+                  <p class = "card-text" >
+                    { noticia.description }
+                  </p>
+                </div>
+              </div>
+            );*/
         })
         return ( <
             div > { noticias } < /div>
@@ -74,20 +89,12 @@ class Noticias extends Component {
     }
 
     render() {
-        return ( <
-            div >
-            <
-            label > Nombre Empresa: < /label> <
-            input type = "text"
-            name = "texto"
-            onChange = { this.cambio }
-            /> <
-            button class = "btn btn-primary"
-            onClick = { this.click } > Buscar < /button> <
-            br / >
-            <
-            br / > { this.mostrar() } { /*<Grafico/>*/ } { /*<Grafico2/>*/ } <
-            /div>
+        return (
+          <div >
+            <div>
+            { this.mostrar() } { /*<Grafico/>*/ } { /*<Grafico2/>*/ }
+            </div>
+            </div>
         )
     }
 }
