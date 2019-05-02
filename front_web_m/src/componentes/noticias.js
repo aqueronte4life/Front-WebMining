@@ -34,7 +34,7 @@ class Noticias extends Component {
     }
 
     click() {
-        var link = 'https://deploy-back.herokuapp.com/noticia/' + this.props.ruta
+        var link = 'http://back-webmining-dev.us-east-2.elasticbeanstalk.com/noticia/' + this.props.ruta
         axios.get(link)
             .then(res => {
                 console.log(res.data)

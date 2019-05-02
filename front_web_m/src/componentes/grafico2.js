@@ -274,7 +274,7 @@ class Grafico2 extends Component{
   }
 
   obtenerDatos(){
-    var link = 'https://deploy-back.herokuapp.com/graf1_service/' + this.props.nombreEmpresa.nombreEmpresa
+    var link = 'http://back-webmining-dev.us-east-2.elasticbeanstalk.com/graf1_service/' + this.props.nombreEmpresa.nombreEmpresa
     var data = []
 
     axios.get(link)
@@ -316,7 +316,7 @@ class Grafico2 extends Component{
       this.setState({data: data})
     })
     .then(result =>{
-      var link = 'https://deploy-back.herokuapp.com/graf1_service_twitter/' + this.props.nombreEmpresa.nombreEmpresa
+      var link = 'http://back-webmining-dev.us-east-2.elasticbeanstalk.com/graf1_service_twitter/' + this.props.nombreEmpresa.nombreEmpresa
       var data1 = []
       axios.get(link)
       .then(res => {

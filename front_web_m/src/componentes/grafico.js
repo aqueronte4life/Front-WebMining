@@ -199,7 +199,7 @@ class Grafico extends Component {
             fecha: this.state.posicionX,
             fuente: this.state.tipo
         }
-        var link = 'https://deploy-back.herokuapp.com/subir_hito/';
+        var link = 'http://back-webmining-dev.us-east-2.elasticbeanstalk.com/subir_hito/';
         axios.post(link, hito)
             .then(res => {
                 console.log(res.data);
@@ -233,12 +233,12 @@ class Grafico extends Component {
         console.log(this.props);
         console.log(this.state.tipo)
         if (this.state.tipo == 'RSS') {
-            var link = 'https://deploy-back.herokuapp.com/graf1_service/' + this.props.ruta
+            var link = 'http://back-webmining-dev.us-east-2.elasticbeanstalk.com/graf1_service/' + this.props.ruta
             console.log(link)
             axios.get(link)
                 .then(res => {
                     console.log(res.data)
-                    var link = 'https://deploy-back.herokuapp.com/getHito/' + this.props.ruta + '/' + this.state.tipo;
+                    var link = 'http://back-webmining-dev.us-east-2.elasticbeanstalk.com/getHito/' + this.props.ruta + '/' + this.state.tipo;
 
 
                     this.setState({ datosG: res.data })
@@ -279,7 +279,7 @@ class Grafico extends Component {
                         }
                     }
                     console.log("defedef")
-                    var link = 'https://deploy-back.herokuapp.com/getHito/' + this.props.ruta;
+                    var link = 'http://back-webmining-dev.us-east-2.elasticbeanstalk.com/getHito/' + this.props.ruta;
                     /*axios.get(link)
                         .then(res => {
                             console.log(res.data)
@@ -300,11 +300,11 @@ class Grafico extends Component {
                     console.log(error.response)
                 });
         } else if (this.state.tipo == 'RS') {
-            var link = 'https://deploy-back.herokuapp.com/graf1_service_twitter/' + this.props.ruta
+            var link = 'http://back-webmining-dev.us-east-2.elasticbeanstalk.com/graf1_service_twitter/' + this.props.ruta
 
             axios.get(link)
                 .then(res => {
-                    var link = 'https://deploy-back.herokuapp.com/getHito/' + this.props.ruta;
+                    var link = 'http://back-webmining-dev.us-east-2.elasticbeanstalk.com/getHito/' + this.props.ruta;
                     this.setState({ datosG: res.data })
 
                     var keys = Object.keys(res.data[0]);
@@ -336,7 +336,7 @@ class Grafico extends Component {
                         }
                     }
 
-                    /*var link = 'https://deploy-back.herokuapp.com/getHito/' + this.props.nombreEmpresa.nombreEmpresa;
+                    /*var link = 'http://back-webmining-dev.us-east-2.elasticbeanstalk.com/getHito/' + this.props.nombreEmpresa.nombreEmpresa;
                     axios.get(link)
                     .then(res => {
                       console.log(res.data)
@@ -356,11 +356,11 @@ class Grafico extends Component {
                 });
         } else if (this.state.tipo == 'TP') {
             //aca cambiar endpoint
-            var link = 'https://deploy-back.herokuapp.com/graf1_service_google/' + this.props.ruta
+            var link = 'http://back-webmining-dev.us-east-2.elasticbeanstalk.com/graf1_service_google/' + this.props.ruta
 
             axios.get(link)
                 .then(res => {
-                    var link = 'https://deploy-back.herokuapp.com/getHito/' + this.props.ruta;
+                    var link = 'http://back-webmining-dev.us-east-2.elasticbeanstalk.com/getHito/' + this.props.ruta;
 
                     this.setState({ datosG: res.data })
 
@@ -394,7 +394,7 @@ class Grafico extends Component {
                         }
                     }
 
-                    /*var link = 'https://deploy-back.herokuapp.com/getHito/' + this.props.nombreEmpresa.nombreEmpresa;
+                    /*var link = 'http://back-webmining-dev.us-east-2.elasticbeanstalk.com/getHito/' + this.props.nombreEmpresa.nombreEmpresa;
                     axios.get(link)
                     .then(res => {
                       console.log(res.data)
@@ -464,7 +464,7 @@ class Grafico extends Component {
             fechaInicio: this.state.fechaInicio,
             fechaTermino: this.state.fechaFinal
         }
-        var link = 'https://deploy-back.herokuapp.com/obtenerFechas/';
+        var link = 'http://back-webmining-dev.us-east-2.elasticbeanstalk.com/obtenerFechas/';
         axios.post(link, fechas)
             .then(res => {
                 console.log(res.data);
