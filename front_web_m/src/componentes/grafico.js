@@ -100,6 +100,7 @@ class Grafico extends Component {
         let chart = am4core.create("chartdiv2", am4charts.XYChart);
 
         chart.data = this.state.data;
+        chart.responsive.enabled = true;
         /*var asd = generateChartData()
         console.log(asd);
         chart.data = asd;*/
@@ -249,26 +250,22 @@ class Grafico extends Component {
                     var data = [];
                     var a = 0;
                     var b = 0;
-                    console.log("asdasd")
+                    console.log(res.data[b][keys[3]])
                     while (a < todas.length) {
                         var firstDate;
-                        console.log("creo")
                         firstDate = new Date(res.data[b][keys[2]]);
-                        console.log("ajhsdjadv")
 
                         if (firstDate.getFullYear() == todas[a].getFullYear() && firstDate.getMonth() == todas[a].getMonth() && firstDate.getDate() == todas[a].getDate()) {
                             firstDate.setTime(firstDate.getTime() + 4 * 60 * 60 * 1000);
-                            console.log("no entiendo")
                             data.push({
                                 date: firstDate,
                                 y: res.data[b][keys[7]],
-                                id: res.data[b][keys[2]] + '~' + res.data[b][keys[5]]
+                                id: res.data[b][keys[3]].title + '~' + res.data[b][keys[3]].description
                             });
 
                             a++;
                             b++;
                         } else {
-                            console.log("no entiendo")
                             todas[a].setTime(todas[a].getTime() + 4 * 60 * 60 * 1000);
                             data.push({
                                 date: todas[a],
@@ -477,43 +474,33 @@ class Grafico extends Component {
     }
 
     render() {
-        return ( <
-            div >
-            <
-            select value = { this.state.selec }
-            onChange = { this.onChangeS } >
-            <
-            option value = "RSS" > RSS < /option> <
-            option value = "RS" > Red Social < /option> <
-            option value = "TP" > Top Query < /option> <
-            /select> <
-            h4 className = "titulo" >
-            Repeticiones por fecha <
-            /h4> <
-            div id = "chartdiv2"
-            style = {
-                { width: "100%", height: "500px" } } > < /div> <
-            button class = "btn btn-primary"
-            onClick = { this.insertarHito } > Marcar Hitos < /button> <
-            button class = "btn btn-primary"
-            onClick = { this.dejarDeMarcar } > Dejar de Marcar Hitos < /button> <
-            br / >
-            Fecha Inicio <
-            input name = "fechaInicio"
-            value = { this.state.fechaInicio }
-            onChange = { this.fechas }
-            type = "date" / >
-            <
-            br / >
-            Fecha Final <
-            input name = "fechaFinal"
-            value = { this.state.fechaFinal }
-            onChange = { this.fechas }
-            type = "date" / >
-            <
-            button class = "btn btn-primary"
-            onClick = { this.onClickFechas } > Buscar < /button> { this.mostrar() } <
-            /div>
+        return (
+            <div >
+              <select value = { this.state.selec } onChange = { this.onChangeS } >
+                <option value = "RSS" > RSS < /option>
+                <option value = "RS" > Red Social < /option>
+                <option value = "TP" > Top Query < /option>
+              </select>
+              <h4 className = "titulo" >
+                Repeticiones por fecha
+              </h4>
+              <div id = "chartdiv2" style = {{ width: "500px", height: "500px" } } >
+              </div>
+              <button class = "btn btn-primary" onClick = { this.insertarHito }> Marcar Hitos </button>
+              <button class = "btn btn-primary" onClick = { this.dejarDeMarcar }>
+                Dejar de Marcar Hitos
+              </button>
+              <br/>
+              Fecha Inicio
+              <input name = "fechaInicio" value = { this.state.fechaInicio } onChange = { this.fechas } type = "date" / >
+              <br/>
+              Fecha Final
+              <input name = "fechaFinal" value = { this.state.fechaFinal } onChange = { this.fechas } type = "date" / >
+              <button class = "btn btn-primary" onClick = { this.onClickFechas } >
+                Buscar
+              </button>
+              { this.mostrar() }
+            </div>
         );
     }
 }
