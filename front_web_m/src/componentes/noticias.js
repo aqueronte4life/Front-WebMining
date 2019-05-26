@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import * as actions from '../redux/actions';
 import Grafico from './grafico';
 import Grafico2 from './grafico2';
-
+import '../css/noticias.css'
 
 am4core.useTheme(am4themes_animated);
 
@@ -86,15 +86,40 @@ class Noticias extends Component {
     }
     componentDidMount(){
         this.click()
+        var btns = document.getElementsByClassName("btn btn-outline-primary");
+        for (var i = 0; i < btns.length; i++) {
+          btns[i].addEventListener("click", function() {
+          var current = document.getElementsByClassName("active");
+          current[0].className = current[0].className.replace(" active", "");
+          this.className += " active";
+          });
+        }
+    }
+
+    removerCSS(){
+      var btns = document.getElementsByClassName("btn btn-outline-primary btn-lg");
+      for (var i = 0; i < btns.length; i++) {
+        btns[i].addEventListener("click", function() {
+        var current = document.getElementsByClassName("active");
+        current[0].className = current[0].className.replace(" active", "");
+        this.className += " active";
+        });
+      }
     }
 
     render() {
         return (
           <div >
-            <div>
-            { this.mostrar() } { /*<Grafico/>*/ } { /*<Grafico2/>*/ }
+            <div class="botones btn-group">
+              <button class="btn btn-outline-primary unBoton active">E</button>
+              <button class="btn btn-outline-primary unBoton">SI</button>
+              <button class="btn btn-outline-primary unBoton">SE</button>
+              <button class="btn btn-outline-primary unBoton">G</button>
             </div>
+            <div class ="tamano3">
+              { this.mostrar() } { /*<Grafico/>*/ } { /*<Grafico2/>*/ }
             </div>
+          </div>
         )
     }
 }

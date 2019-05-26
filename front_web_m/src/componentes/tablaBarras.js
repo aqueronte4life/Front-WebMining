@@ -6,12 +6,14 @@ import '../css/tablaBarra.css';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import { Button, Popover, PopoverHeader, PopoverBody } from 'reactstrap';
+import { connect } from 'react-redux';
+import * as actions from '../redux/actions';
 
 const Range = Slider.Range;
 function log(value) {
   console.log(value); //eslint-disable-line
 }
-const style = { width: 400, margin: 50 };
+const style = { width: 400 };
 
 
 // Create a list of day and month names.
@@ -62,7 +64,7 @@ class TablaBarras extends Component{
     super(props);
     this.state={
     	porcentaje: 20,
-    	datos: [[10,20,30], [40,50,60], [70,80,90], [30, 50, 80]],
+    	datos: [[[10, {"uno": 1, "dos": 2}],[20, {"tres": 3, "cuatro": 4}],[30, {}]], [[40, {"dos": 2}],[50, {}],[60, {}]], [[70, {"tres": 3}],[80, {"uno": 1, "cuatro": 4}],[90, {"dos": 2, "cuatro": 4}]], [[30, {"uno": 1}], [50, {"tres": 3}], [80, {}]]],
     	texto: '',
     	fechaInicio: '2017-01-01',
 	    fechaFinal: '2017-12-31',
@@ -92,8 +94,19 @@ class TablaBarras extends Component{
     this.toggle = this.toggle.bind(this);
   }
 
-  obtenerDatos(){
+  componentDidMount(){
+    var link = 'http://back-webmining-dev.us-east-2.elasticbeanstalk.com/service_table_anterior/' + this.props.ruta
+    console.log(link);
+    axios.get(link)
+    .then(res => {
+        console.log(res.data)
+        //this.setState({datos : res.data})
 
+    })
+    .catch(error => {
+
+        console.log(error.response)
+    });
   }
 
   cambio(event){
@@ -107,9 +120,15 @@ class TablaBarras extends Component{
 
   click(event){
     event.preventDefault();
-    console.log(this.state.texto);
-    var link = 'http://back-webmining-dev.us-east-2.elasticbeanstalk.com/service_table/' + this.state.texto
-    axios.get(link)
+    var link = 'http://back-webmining-dev.us-east-2.elasticbeanstalk.com/service_table_fecha/'
+    const datos = {
+      empresa: this.props.ruta,
+      fechaInicio: this.state.min1,
+      fechaFinal: this.state.max1
+    }
+    console.log(datos);
+
+    axios.post(link, datos)
     .then(res => {
       console.log(res.data)
       //[1,2,3]
@@ -122,30 +141,48 @@ class TablaBarras extends Component{
     //this.setState({noticias: [{title: 'Hola', description: 'hola2'}, {title: 'hola3', description: 'hola4'}]})
   }
 
+  textoPop(obj){
+    var keys = Object.keys(obj);
+
+    const Texto = keys.map((label)=>{
+      return(
+        <div>
+          {label}: {obj[label]}
+        </div>
+      )
+    })
+    return(
+      <PopoverBody>
+        {Texto}
+      </PopoverBody>
+    )
+
+  }
+
   crearFilas(){
   	const Tabla = this.state.datos.map((dato, i)=>{
-  		const Fila = dato.map((num, j)=>{
-  			if(num <50){
+  		const Fila = dato.map((dat, j)=>{
+  			if(dat[0] <50){
   				return(
   					<td>
             <div id = {"popoverOpen" + (i*3 + j)}>
-            <Line class = "figuras" strokeWidth="2" strokeColor="red"  percent={num} /> {num}
+            <Line class = "figuras" strokeWidth="2" strokeColor="red"  percent={dat[0]} /> {dat[0]}
             </div>
             <Popover placement="bottom" isOpen={this.state.popoverOpen1[i][j]} target={"popoverOpen" + (i*3 + j)} toggle={this.toggle}>
               <PopoverHeader>Popover Title</PopoverHeader>
-              <PopoverBody>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</PopoverBody>
+              {this.textoPop(dat[1])}
             </Popover>
   					</td>)
 	  		}
-	  		else if(num < 70){
+	  		else if(dat[0] < 70){
 	  			return(
   					<td>
             <div id = {"popoverOpen" + (i*3 + j)}>
-  					<Line class = "figuras" strokeWidth="2" strokeColor="yellow"  percent={num} /> {num}
+  					<Line class = "figuras" strokeWidth="2" strokeColor="yellow"  percent={dat[0]} /> {dat[0]}
             </div>
             <Popover placement="bottom" isOpen={this.state.popoverOpen1[i][j]} target={"popoverOpen" + (i*3 + j)} toggle={this.toggle}>
               <PopoverHeader>Popover Title</PopoverHeader>
-              <PopoverBody>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</PopoverBody>
+              {this.textoPop(dat[1])}
             </Popover>
   					</td>)
 	  		}
@@ -153,11 +190,11 @@ class TablaBarras extends Component{
 	  			return(
   					<td>
             <div id = {"popoverOpen" + (i*3 + j)}>
-  					<Line class = "figuras" strokeWidth="2" strokeColor="green"  percent={num} /> {num}
+  					<Line class = "figuras" strokeWidth="2" strokeColor="green"  percent={dat[0]} /> {dat[0]}
             </div>
             <Popover placement="bottom" isOpen={this.state.popoverOpen1[i][j]} target={"popoverOpen" + (i*3 + j)} toggle={this.toggle}>
               <PopoverHeader>Popover Title</PopoverHeader>
-              <PopoverBody>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</PopoverBody>
+              {this.textoPop(dat[1])}
             </Popover>
   					</td>)
 	  		}
@@ -212,26 +249,7 @@ class TablaBarras extends Component{
   		)
   }
 
-  onClickFechas(){
-    const fechas = {
-      empresa: this.state.texto,
-      fechaInicio: this.state.fechaInicio,
-      fechaTermino: this.state.fechaFinal
-    }
-    var link = 'http://back-webmining-dev.us-east-2.elasticbeanstalk.com/obtenerFechas/';
-    axios.post(link, fechas)
-    .then(res => {
-      console.log(res.data);
-      this.setState({datos: res.data})
-    })
-    .catch(error => {
-
-        console.log(error.response)
-    });
-  }
-
   onSliderChange(value){
-    log(value);
     this.setState({
       min1: value[0],
       max1: value[1],
@@ -243,10 +261,10 @@ class TablaBarras extends Component{
     var fecha2 = new Date(this.state.max1)
     return(
       <div>
-      {fecha1.toString()}
+      {formatDate(fecha1)}
       <br/>
       <br/>
-      {fecha2.toString()}
+      {formatDate(fecha2)}
       </div>
       )
   }
@@ -267,21 +285,6 @@ class TablaBarras extends Component{
   doTimeout(){
     var myVar;
     myVar = setTimeout(function(){ document.getElementById("desv1").style.display = "none"; }, 1500);
-  }
-
-  funcionaPLS(){
-    return(
-      <div>
-      <button id="desv" onClick={this.porfavor} onMouseEnter={this.porfavor} onMouseLeave={this.doTimeout}>snidfbsd</button>
-        <div id="desv1">
-          This is the paragraph to end all paragraphs.  You
-          should feel  to have seen such a paragraph in
-          your life.  Congratulations!
-        </div>
-
-
-      </div>
-      )
   }
 
   toggle(event) {
@@ -305,18 +308,12 @@ class TablaBarras extends Component{
   render(){
   	return(
   		<div>
-  			<label>Nombre Empresa: </label>
-       		<input type = "text" name = "texto" onChange = {this.cambio}/>
-       		<button class="btn btn-primary" onClick = {this.click}>Buscar</button>
 	  		{this.crearFilas()}
-	  		<br/>
-        <br/>
-        <button class="btn btn-primary" onClick={this.onClickFechas}>Filtrar</button>
+        <button class="btn btn-primary" onClick={this.click}>Filtrar</button>
         <div style={style}>
 
-          <br /><br />
           <Range  min={this.state.min} max={this.state.max} step={24 * 60 * 60 * 1000}
-            onChange={this.onSliderChange}
+            onChange={this.onSliderChange} defaultValue={[this.state.min, this.state.max]}
           />
           {this.imprimirFechas()}
         </div>
@@ -324,6 +321,11 @@ class TablaBarras extends Component{
 		  </div>
   		)
   }
+}
+const mapStateToProps = state => {
+    return {
+        nombreEmpresa: state.nombreEmpresa
+    }
 }
 
 export default TablaBarras;

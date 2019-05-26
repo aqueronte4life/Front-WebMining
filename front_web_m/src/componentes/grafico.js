@@ -439,19 +439,17 @@ class Grafico extends Component {
 
     mostrar() {
         var noticias = this.state.noticias.map((noticia) => {
-            return ( <
-                div class = "card" >
-                <
-                h5 class = "card-header" > { noticia.title } < /h5> <
-                div class = "card-body" >
-                <
-                p class = "card-text" > { noticia.description } < /p> <
-                /div> <
-                /div>
+            return (
+              <div class = "card" >
+                <h5 class = "card-header" > { noticia.title } < /h5>
+                <div class = "card-body" >
+                  <p class = "card-text" > { noticia.description } < /p>
+                </div>
+              </div>
             );
         })
-        return ( <
-            div > { noticias } < /div>
+        return (
+          <div > { noticias } < /div>
         )
     }
 
@@ -475,7 +473,7 @@ class Grafico extends Component {
 
     render() {
         return (
-            <div >
+            <div class="vistaG">
               <select value = { this.state.selec } onChange = { this.onChangeS } >
                 <option value = "RSS" > RSS < /option>
                 <option value = "RS" > Red Social < /option>
@@ -484,7 +482,9 @@ class Grafico extends Component {
               <h4 className = "titulo" >
                 Repeticiones por fecha
               </h4>
-              <div id = "chartdiv2" style = {{ width: "500px", height: "500px" } } >
+              <div class="graf">
+              <div id = "chartdiv2" style = {{ width: "1150px", height: "500px" } } >
+              </div>
               </div>
               <button class = "btn btn-primary" onClick = { this.insertarHito }> Marcar Hitos </button>
               <button class = "btn btn-primary" onClick = { this.dejarDeMarcar }>

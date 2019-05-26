@@ -36,19 +36,19 @@ class PagPrincipal extends Component{
         <div class="row">
           <div class="col-6 col-md-6 col-sm-4 col-xs-2">
             <div class="tamano">
+              <h3>{this.props.match.params.id}</h3>
               <Noticias ruta = {this.props.match.params.id}/>
-            </div>
-            <div class="tamano2">
-              <Grafico  ruta = {this.props.match.params.id}/>
             </div>
           </div>
           <div class="col-6 col-md-6 col-sm-4 col-xs-2">
             <div class="tamano2">
-              <TablaBarras />
+              <TablaBarras ruta = {this.props.match.params.id}/>
             </div>
           </div>
+          <div>
+            <Grafico  ruta = {this.props.match.params.id}/>
+          </div>
         </div>
-        {this.props.nombreEmpresa.nombreEmpresa}
       </div>
     )
   }
