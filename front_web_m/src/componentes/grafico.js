@@ -32,6 +32,8 @@ function generateChartData() {
 }
 
 function getDates(startDate, endDate, tipo) {
+  console.log(startDate);
+  console.log(endDate);
     if (tipo == 0) {
         endDate.setDate(endDate.getDate() )
     } else if (tipo == 1) {
@@ -61,8 +63,8 @@ class Grafico extends Component {
             dateAxis: [],
             posiciones: {},
             posicionX: 0,
-            fechaInicio: '2017-01-01',
-            fechaFinal: '2017-12-31',
+            fechaInicio: '2018-01-01',
+            fechaFinal: '2020-12-31',
             hitos: [],
             noticias: []
         }
@@ -245,21 +247,23 @@ class Grafico extends Component {
                     this.setState({ datosG: res.data })
 
                     var keys = Object.keys(res.data[0]);
-
-                    var todas = getDates(new Date(res.data[0][keys[2]]), new Date(res.data[res.data.length - 1][keys[2]]), 0);
+                    console.log();
+                    var todas = getDates(new Date(res.data[0][keys[5]]), new Date(res.data[res.data.length - 1][keys[5]]), 0);
+                    console.log(keys);
                     var data = [];
                     var a = 0;
                     var b = 0;
-                    console.log(res.data[b][keys[3]])
                     while (a < todas.length) {
                         var firstDate;
-                        firstDate = new Date(res.data[b][keys[2]]);
+                        firstDate = new Date(res.data[b][keys[5]]);
 
                         if (firstDate.getFullYear() == todas[a].getFullYear() && firstDate.getMonth() == todas[a].getMonth() && firstDate.getDate() == todas[a].getDate()) {
                             firstDate.setTime(firstDate.getTime() + 4 * 60 * 60 * 1000);
+                            console.log("wqewqwe");
+                            console.log(res.data[b][keys[8]]);
                             data.push({
                                 date: firstDate,
-                                y: res.data[b][keys[7]],
+                                y: res.data[b][keys[8]],
                                 id: res.data[b][keys[3]].title + '~' + res.data[b][keys[3]].description
                             });
 
@@ -289,7 +293,7 @@ class Grafico extends Component {
                             console.log(error.response)
                         });*/
 
-
+                    console.log(data);
                     this.setState({ data: data })
                 })
                 .catch(error => {
@@ -306,19 +310,20 @@ class Grafico extends Component {
 
                     var keys = Object.keys(res.data[0]);
 
-                    var todas = getDates(new Date(res.data[0][keys[1]]), new Date(res.data[res.data.length - 1][keys[1]]), 1);
+                    var todas = getDates(new Date(res.data[0][keys[5]]), new Date(res.data[res.data.length - 1][keys[5]]), 1);
                     var data = [];
                     var a = 0;
                     var b = 0;
                     while (a < todas.length) {
                         var firstDate;
-                        firstDate = new Date(res.data[b][keys[1]]);
+                        firstDate = new Date(res.data[b][keys[5]]);
 
                         if (firstDate.getFullYear() == todas[a].getFullYear() && firstDate.getMonth() == todas[a].getMonth() && firstDate.getDate() == todas[a].getDate()) {
                             firstDate.setTime(firstDate.getTime() + 4 * 60 * 60 * 1000);
                             data.push({
                                 date: firstDate,
-                                y: res.data[b][keys[10]]
+                                y: res.data[b][keys[8]],
+                                id: res.data[b][keys[3]].title + '~' + res.data[b][keys[3]].description
                             });
                             a++;
                             b++;
@@ -364,19 +369,19 @@ class Grafico extends Component {
                     var keys = Object.keys(res.data[0]);
 
 
-                    var todas = getDates(new Date(res.data[0][keys[1]]), new Date(res.data[res.data.length - 1][keys[1]]), 1);
+                    var todas = getDates(new Date(res.data[0][keys[5]]), new Date(res.data[res.data.length - 1][keys[5]]), 1);
                     var data = [];
                     var a = 0;
                     var b = 0;
                     while (a < todas.length) {
                         var firstDate;
-                        firstDate = new Date(res.data[b][keys[1]]);
+                        firstDate = new Date(res.data[b][keys[5]]);
                         if (firstDate.getFullYear() == todas[a].getFullYear() && firstDate.getMonth() == todas[a].getMonth() && firstDate.getDate() == todas[a].getDate()) {
                             firstDate.setTime(firstDate.getTime() + 4 * 60 * 60 * 1000);
                             data.push({
-                                date: firstDate,
-                                //cambiar []
-                                y: res.data[b][keys[10]]
+                              date: firstDate,
+                              y: res.data[b][keys[8]],
+                              id: res.data[b][keys[3]].title + '~' + res.data[b][keys[3]].description
                             });
                             a++;
                             b++;
