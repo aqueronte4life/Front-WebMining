@@ -4,3 +4,10 @@ export const setNombre = (tipo) => {
     payload: tipo
   }
 }
+
+export const setFechas = (tipo) => {
+  return {
+    type: 'setFechas',
+    payload: tipo
+  }
+}

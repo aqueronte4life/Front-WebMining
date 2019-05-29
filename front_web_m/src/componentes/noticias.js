@@ -22,6 +22,7 @@ class Noticias extends Component {
         this.cambio = this.cambio.bind(this);
         this.click = this.click.bind(this);
         this.mostrar = this.mostrar.bind(this);
+        this.onClickFechas = this.onClickFechas.bind(this)
     }
 
     cambio(event) {
@@ -107,6 +108,34 @@ class Noticias extends Component {
       }
     }
 
+    componentDidUpdate(prevProps, prevState){
+      console.log(this.props.fechas);
+      if(this.props.fechas != prevProps.fechas){
+        console.log("WIIIIII");
+        this.onClickFechas()
+      }
+    }
+
+    onClickFechas() {
+      console.log(this.props);
+        const fechas = {
+            empresa: this.props.ruta,
+            fechaInicio: this.props.fechas.fechaInicio,
+            fechaTermino: this.props.fechas.fechaFinal
+        }
+        console.log(fechas);
+        var link = 'http://back-webmining-dev.us-east-2.elasticbeanstalk.com/obtenerFechas/';
+        axios.post(link, fechas)
+        .then(res => {
+            console.log(res.data);
+            this.setState({noticias: res.data})
+        })
+        .catch(error => {
+
+            console.log(error.response)
+        });
+    }
+
     render() {
         return (
           <div >
@@ -125,7 +154,8 @@ class Noticias extends Component {
 }
 const mapStateToProps = state => {
     return {
-        nombreEmpresa: state.nombreEmpresa
+        nombreEmpresa: state.nombreEmpresa,
+        fechas: state.fechas
     }
 }
 

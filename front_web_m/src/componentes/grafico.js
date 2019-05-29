@@ -32,8 +32,6 @@ function generateChartData() {
 }
 
 function getDates(startDate, endDate, tipo) {
-  console.log(startDate);
-  console.log(endDate);
     if (tipo == 0) {
         endDate.setDate(endDate.getDate() )
     } else if (tipo == 1) {
@@ -233,23 +231,17 @@ class Grafico extends Component {
     }
 
     obtenerDatos() {
-        console.log(this.props);
-        console.log(this.state.tipo)
         if (this.state.tipo == 'RSS') {
             var link = 'http://back-webmining-dev.us-east-2.elasticbeanstalk.com/graf1_service/' + this.props.ruta
-            console.log(link)
             axios.get(link)
                 .then(res => {
-                    console.log(res.data)
                     var link = 'http://back-webmining-dev.us-east-2.elasticbeanstalk.com/getHito/' + this.props.ruta + '/' + this.state.tipo;
 
 
                     this.setState({ datosG: res.data })
 
                     var keys = Object.keys(res.data[0]);
-                    console.log();
                     var todas = getDates(new Date(res.data[0][keys[5]]), new Date(res.data[res.data.length - 1][keys[5]]), 0);
-                    console.log(keys);
                     var data = [];
                     var a = 0;
                     var b = 0;
@@ -259,8 +251,6 @@ class Grafico extends Component {
 
                         if (firstDate.getFullYear() == todas[a].getFullYear() && firstDate.getMonth() == todas[a].getMonth() && firstDate.getDate() == todas[a].getDate()) {
                             firstDate.setTime(firstDate.getTime() + 4 * 60 * 60 * 1000);
-                            console.log("wqewqwe");
-                            console.log(res.data[b][keys[8]]);
                             data.push({
                                 date: firstDate,
                                 y: res.data[b][keys[8]],
@@ -279,7 +269,6 @@ class Grafico extends Component {
                             a++;
                         }
                     }
-                    console.log("defedef")
                     var link = 'http://back-webmining-dev.us-east-2.elasticbeanstalk.com/getHito/' + this.props.ruta;
                     /*axios.get(link)
                         .then(res => {
@@ -292,8 +281,6 @@ class Grafico extends Component {
 
                             console.log(error.response)
                         });*/
-
-                    console.log(data);
                     this.setState({ data: data })
                 })
                 .catch(error => {

@@ -69,9 +69,9 @@ class TablaBarras extends Component{
     	fechaInicio: '2017-01-01',
 	    fechaFinal: '2017-12-31',
       min: 1413169200000,
-      max: 1416798000000,
+      max: 1716960236606,
       min1: 1413169200000,
-      max1: 1416798000000,
+      max1: 1716960236606,
       /*popoverOpen0: false,
       popoverOpen1: false,
       popoverOpen2: false,
@@ -95,6 +95,18 @@ class TablaBarras extends Component{
   }
 
   componentDidMount(){
+    var año = new Date();
+    var numAño = año.getTime()
+    var añoAnt = new Date(new Date().setFullYear(new Date().getFullYear() - 1))
+    var numAñoAnt = añoAnt.getTime()
+    console.log(numAño);
+    console.log(numAñoAnt);
+    this.setState({
+      min: numAñoAnt,
+      min1: numAñoAnt,
+      max: numAño,
+      max1: numAño
+    })
     var link = 'http://back-webmining-dev.us-east-2.elasticbeanstalk.com/service_table_anterior/' + this.props.ruta
     console.log(link);
     axios.get(link)
@@ -120,6 +132,12 @@ class TablaBarras extends Component{
 
   click(event){
     event.preventDefault();
+    const fechas = {
+      fechaInicio: this.state.min1,
+      fechaFinal: this.state.max1
+    }
+    this.props.setFechas(fechas)
+    console.log(fechas);
     var link = 'http://back-webmining-dev.us-east-2.elasticbeanstalk.com/service_table_fecha/'
     const datos = {
       empresa: this.props.ruta,
@@ -169,7 +187,7 @@ class TablaBarras extends Component{
             <Line class = "figuras" strokeWidth="2" strokeColor="red"  percent={dat[0]} /> {dat[0]}
             </div>
             <Popover placement="bottom" isOpen={this.state.popoverOpen1[i][j]} target={"popoverOpen" + (i*3 + j)} toggle={this.toggle}>
-              <PopoverHeader>Popover Title</PopoverHeader>
+              <PopoverHeader>Fuentes</PopoverHeader>
               {this.textoPop(dat[1])}
             </Popover>
   					</td>)
@@ -181,7 +199,7 @@ class TablaBarras extends Component{
   					<Line class = "figuras" strokeWidth="2" strokeColor="yellow"  percent={dat[0]} /> {dat[0]}
             </div>
             <Popover placement="bottom" isOpen={this.state.popoverOpen1[i][j]} target={"popoverOpen" + (i*3 + j)} toggle={this.toggle}>
-              <PopoverHeader>Popover Title</PopoverHeader>
+              <PopoverHeader>Fuentes</PopoverHeader>
               {this.textoPop(dat[1])}
             </Popover>
   					</td>)
@@ -193,7 +211,7 @@ class TablaBarras extends Component{
   					<Line class = "figuras" strokeWidth="2" strokeColor="green"  percent={dat[0]} /> {dat[0]}
             </div>
             <Popover placement="bottom" isOpen={this.state.popoverOpen1[i][j]} target={"popoverOpen" + (i*3 + j)} toggle={this.toggle}>
-              <PopoverHeader>Popover Title</PopoverHeader>
+              <PopoverHeader>Fuentes</PopoverHeader>
               {this.textoPop(dat[1])}
             </Popover>
   					</td>)
@@ -308,15 +326,15 @@ class TablaBarras extends Component{
   render(){
   	return(
   		<div>
-	  		{this.crearFilas()}
-        <button class="btn btn-primary" onClick={this.click}>Filtrar</button>
         <div style={style}>
-
+          {this.imprimirFechas()}
           <Range  min={this.state.min} max={this.state.max} step={24 * 60 * 60 * 1000}
             onChange={this.onSliderChange} defaultValue={[this.state.min, this.state.max]}
           />
-          {this.imprimirFechas()}
+          <button class="btn btn-primary" onClick={this.click}>Filtrar</button>
         </div>
+	  		{this.crearFilas()}
+
 
 		  </div>
   		)
@@ -328,7 +346,7 @@ const mapStateToProps = state => {
     }
 }
 
-export default TablaBarras;
+export default connect(mapStateToProps, actions)(TablaBarras);
 
 /*
 0-50
